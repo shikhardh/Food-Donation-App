@@ -9,10 +9,22 @@ MongoClient.connect(uri, function(err, db) {
     if (err) throw err;
     console.log("Database created!");
     db.close();
-  });
+});
+
+//app.set('views', path.join(__dirname, 'views'));
+
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('./public/index.html'))
+    res.render('index');
+})
+
+app.get('/search_results', (req, res) => {
+    //results in a table
+})
+
+app.post('/donate_food', (req, res) => {
+    // donate food add
 })
 
 app.listen(3000, function() {
