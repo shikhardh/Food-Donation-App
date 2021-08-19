@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
 
 const uri = "mongodb://localhost:27017/mydb";
@@ -14,9 +15,12 @@ MongoClient.connect(uri, function(err, db) {
 //app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
+//app.use(upload.array()); 
 app.use( express.static( "public" ) );
 
-const food = {"details": [{"name": "chicken", "quantity": "2", "place": "sydney", "contact": "987654321", "type":"food"}, {"name": "bread", "quantity": "4", "place": "darwin", "contact": "987654321", "type":"food"}, {"name": "milk", "quantity": "3", "place": "perth", "contact": "987654321", "type":"drink"}]}
+const food = {"details": [{"name": "chicken", "quantity": "2", "place": "sydney", "contact": "987654321", "type":"food"}, {"name": "bread", "quantity": "4", "place": "darwin", "contact": "987654321", "type":"food"}, {"name": "milk", "quantity": "3", "place": "perth", "contact": "987654321", "type":"drink"}, {"name": "milk", "quantity": "3", "place": "perth", "contact": "987654321", "type":"drink"}]}
 
 app.get('/', (req, res) => {
     res.render('index');
