@@ -14,13 +14,17 @@ MongoClient.connect(uri, function(err, db) {
 //app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'ejs');
+app.use( express.static( "public" ) );
+
+const food = {"details": [{"name": "chicken", "quantity": "2", "place": "sydney", "contact": "987654321", "type":"food"}, {"name": "bread", "quantity": "4", "place": "darwin", "contact": "987654321", "type":"food"}, {"name": "milk", "quantity": "3", "place": "perth", "contact": "987654321", "type":"drink"}]}
 
 app.get('/', (req, res) => {
     res.render('index');
 })
 
-app.get('/search_results', (req, res) => {
+app.get('/search', (req, res) => {
     //results in a table
+    res.render('food', {food: food})
 })
 
 app.post('/donate_food', (req, res) => {

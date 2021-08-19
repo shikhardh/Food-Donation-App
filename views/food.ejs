@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div style="margin: 2%; background-color: bisque;">
+        <% food.details.forEach((item)=> { %>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="<%= item.type %>.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= item.name %>
+                            </h5>
+                            <p class="card-text">
+                                <li> Amount: <%= item.quantity %>
+                                </li>
+                                <li> Amount: <%= item.contact %>
+                                </li>
+                                <li> Amount: <%= item.place %>
+                                </li>
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+
+</html>
