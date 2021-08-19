@@ -3,20 +3,37 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
+const mongoose = require('mongoose');
 
 const uri = "mongodb://localhost:27017/mydb";
 
-MongoClient.connect(uri, function(err, db) {
-    if (err) throw err;
-    console.log("Database created!");
-    db.close();
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("COnnected to db")
+  // we're connected!
 });
+
+const foodSchema = new mongoose.Schema({
+    name: String,
+    quantity: Number,
+    location: String,
+    contact: Number
+  });
+
+const Food = mongoose.model('Food', kittySchema);
+
+const seedData = new Food({ name: 'Silence' });
 
 //app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'ejs');
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true })); 
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //app.use(upload.array()); 
 app.use( express.static( "public" ) );
 
@@ -31,10 +48,15 @@ app.get('/search', (req, res) => {
     res.render('food', {food: food})
 })
 
-app.post('/donate_food', (req, res) => {
+app.get('/donate_food', (req, res) => {
     // donate food add
 })
 
+app.post('/food_added', (req, res) => {
+    console.log(req.body);
+    res.redirect('/');
+})
+
 app.listen(3000, function() {
-    console.log('listening on 3000')
+    console.log('Listening on 3000')
 })

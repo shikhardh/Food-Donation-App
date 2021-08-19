@@ -20,50 +20,67 @@
             </div>
         </div>
     </div>
+    <div style=" margin-top: 10%;">
+        <div style="width: 30%; margin-left: 5%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
+            <h3>Have FOOD to DONATE?</h3>
+            <br>
+            <form action="/food_added" method="POST" autocomplete="off">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
+                    <small style="background-color: rgb(245, 242, 242);" id="emailHelp"
+                        class="form-text text-muted">We'll
+                        never share your email with anyone
+                        else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <label for="food_name">Food Name</label>
+                    <input type="text" class="form-control" id="food" name="food" placeholder="food name">
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity (per person)</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location (city)</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="location">
+                </div>
+                <div class="form-group">
+                    <label for="number">Contact Number</label>
+                    <input type="number" class="form-control" id="number" name="contact" placeholder="number">
+                </div>
 
-    <div style="width: 30%; margin-left: 5%; margin-top: 10%; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
-        <h3>Have FOOD to DONATE?</h3>
-        <br>
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email">
-                <small style="background-color: rgb(245, 242, 242);" id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Name</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Food Name</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Quantity (per person)</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Location (city)</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Contact Number</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                    value="food">
-                <label class="form-check-label" for="inlineRadio1">food</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="drink">
-                <label class="form-check-label" for="inlineRadio2">Drink</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="food">
+                    <label class="form-check-label" for="inlineRadio1">Food</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="drink">
+                    <label class="form-check-label" for="inlineRadio2">Drink</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Donate</button>
+            </form>
+        </div>
+        <div style="width: 30%; margin-left: 15%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
+            <h1>Hungry? Request FOOD</h1>
+            <br>
+            <form action="/food_requested" method="POST" autocomplete="off">
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="location">
+                </div>
+                <div class="form-group">
+                    <label for="person">Number of People</label>
+                    <input type="number" class="form-control" id="person" name="person" placeholder="0">
+                </div>
+                <button type="submit" class="btn btn-primary">Request</button>
+            </form>
+        </div>
     </div>
 </body>
 
