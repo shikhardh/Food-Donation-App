@@ -6,16 +6,14 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body style="background-color: bisque;">
+<body style="background-image: url('background.jpeg'); background-repeat: no-repeat; background-size: 100%; background-attachment: fixed; background-position: center;">
     Hi! Welcome to our app.
-    <div style="margin-top: 10%; margin-right: 40%; margin-left: 40%;">
+    <div style="margin-top: 10%; margin-left: 5%;">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="search location" aria-label="search"
-                aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <a href="/search">
-                    <button class="btn btn-outline-secondary"
-                        style="background-color: rgb(16, 139, 98); color: aliceblue;" type="button">Go</button>
+                    <button class="btn btn-primary"
+                        style="color: aliceblue; width: 150%; height: 130%;" type="button"><h3>Find FOOD</h3></button>
                 </a>
             </div>
         </div>
@@ -69,7 +67,7 @@
         <div style="width: 30%; margin-left: 15%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
             <h1>Hungry? Request FOOD</h1>
             <br>
-            <form action="/food_requested" method="POST" autocomplete="off">
+            <form action="/food_request" method="POST" autocomplete="off">
                 <div class="form-group">
                     <label for="location">Location</label>
                     <input type="text" class="form-control" id="location" name="location" placeholder="location">
