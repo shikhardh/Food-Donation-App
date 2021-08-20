@@ -180,6 +180,9 @@ app.get("/donate_food", (req, res) => {
 
 app.post("/food_added", (req, res) => {
   //console.log(req.body);
+  if (req.body.food == "" || req.body.quantity == "" || req.body.contact == "" || req.body.location == ""){
+    return res.redirect("/");
+}
   data = new Food({
     name: req.body.food,
     quantity: req.body.quantity,
@@ -202,6 +205,9 @@ app.post("/food_added", (req, res) => {
 app.post("/food_request", (req, res) => {
   console.log(req.body);
   //add food req in collection
+  if (req.body.person == "" || req.body.location == ""){
+      return res.redirect("/");
+  }
   data = new Requests({
     quantity: req.body.person,
     location: req.body.location,
