@@ -78,6 +78,53 @@ const foodSchema = new mongoose.Schema({
 //       console.log(`Data Added 3: ${seedData}`);
 //   })
 
+const foodRequestSchema = new mongoose.Schema({
+    location: String,
+    quantity: Number,
+  });
+
+// SEED DATA
+ const Requests = mongoose.model("Requests", foodRequestSchema);
+
+//   let seedData = new Requests({
+//     quantity: "5",
+//     location: "sydney",
+//   });
+
+//   seedData.save(function (err, book){
+//       if (err) {
+//           console.log(err);
+//           res.send("Something went wrong");
+//       }
+//       console.log(`Data Added: ${seedData}`);
+//   })
+
+//   seedData = new Requests({
+//     quantity: "3",
+//     location: "Perth",
+//   });
+
+//   seedData.save(function (err, book){
+//       if (err) {
+//           console.log(err);
+//           res.send("Something went wrong");
+//       }
+//       console.log(`Data Added: ${seedData}`);
+//   })
+
+//   seedData = new Requests({
+//     quantity: "1",
+//     location: "Melbourne",
+//   });
+
+//   seedData.save(function (err, book){
+//       if (err) {
+//           console.log(err);
+//           res.send("Something went wrong");
+//       }
+//       console.log(`Data Added: ${seedData}`);
+//   })
+
 //app.set('views', path.join(__dirname, 'views'));
 
 app.set("view engine", "ejs");
@@ -143,8 +190,12 @@ app.post("/food_request", (req, res) => {
     res.send(`Requested successfully: ${req.body.location} -- ${req.body.person}`);
 })
 
-app.get("/search_request", (req, res) => {
+app.get("/search_request", async (req, res) => {
     // do
+    const data = await Requests.find().sort({'location': 1});
+    const requests = {'details': data}
+    console.log(data);
+    res.render('request.ejs', {data: requests});
 })
 
 app.listen(3000, function () {
