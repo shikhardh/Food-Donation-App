@@ -6,31 +6,36 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body style="background-image: url('background.jpeg'); background-repeat: no-repeat; background-size: 100%; background-attachment: fixed; background-position: center;">
+<body
+    style="background-image: url('background.jpeg'); background-repeat: no-repeat; background-size: 100%; background-attachment: fixed; background-position: center;">
     Hi! Welcome to our app.
     <div style="margin-top: 10%; margin-left: 10%;">
         <div class="input-group mb-3">
             <div class="input-group-append">
                 <span>
-                <a href="/search">
-                    <button class="btn btn-success"
-                        style="color: aliceblue; width: 150%; height: 130%;" type="button"><h3>Find FOOD</h3></button>
-                </a>
-            </span>
-            <span style="margin-left: 94%;">
-                <a href="/search_request">
-                    <button class="btn btn-info"
-                        style="color: aliceblue; width: 150%; height: 130%;" type="button"><h3>See REQUESTED Food</h3></button>
-                </a>
-            </span>
+                    <a href="/search">
+                        <button class="btn btn-success" style="color: aliceblue; width: 150%; height: 130%;"
+                            type="button">
+                            <h3>Find FOOD</h3>
+                        </button>
+                    </a>
+                </span>
+                <span style="margin-left: 94%;">
+                    <a href="/search_request">
+                        <button class="btn btn-info" style="color: aliceblue; width: 150%; height: 130%;" type="button">
+                            <h3>See REQUESTED Food</h3>
+                        </button>
+                    </a>
+                </span>
             </div>
         </div>
     </div>
     <div style=" margin-top: 10%;">
-        <div style="width: 30%; margin-left: 5%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
+        <div
+            style="width: 30%; margin-left: 5%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
             <h3>Have FOOD to DONATE?</h3>
             <br>
-            <form action="/food_added" method="POST" autocomplete="off">
+            <form name="donate" action="/food_added" method="POST" autocomplete="off">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -62,7 +67,7 @@
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="food">
+                    <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="food" checked>
                     <label class="form-check-label" for="inlineRadio1">Food</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -72,7 +77,8 @@
                 <button type="submit" class="btn btn-primary">Donate</button>
             </form>
         </div>
-        <div style="width: 30%; margin-left: 15%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
+        <div
+            style="width: 30%; margin-left: 15%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
             <h1>Hungry? Request FOOD</h1>
             <br>
             <form action="/food_request" method="POST" autocomplete="off">

@@ -20,15 +20,15 @@ db.once("open", function () {
 });
 
 const foodSchema = new mongoose.Schema({
-    name: String,
-    quantity: Number,
-    location: String,
-    contact: Number,
-    type: String,
-  });
+  name: String,
+  quantity: Number,
+  location: String,
+  contact: Number,
+  type: String,
+});
 
-  // SEED DATA
-   const Food = mongoose.model("Food", foodSchema);
+// SEED DATA
+const Food = mongoose.model("Food", foodSchema);
 
 //   let seedData = new Food({
 //     name: "chicken",
@@ -79,12 +79,12 @@ const foodSchema = new mongoose.Schema({
 //   })
 
 const foodRequestSchema = new mongoose.Schema({
-    location: String,
-    quantity: Number,
-  });
+  location: String,
+  quantity: Number,
+});
 
 // SEED DATA
- const Requests = mongoose.model("Requests", foodRequestSchema);
+const Requests = mongoose.model("Requests", foodRequestSchema);
 
 //   let seedData = new Requests({
 //     quantity: "5",
@@ -168,8 +168,8 @@ app.get("/", (req, res) => {
 
 app.get("/search", async (req, res) => {
   //results in a table
-  const data = await Food.find().sort({'location': 1});
-  const food = {'details': data}
+  const data = await Food.find().sort({ location: 1 });
+  const food = { details: data };
   //console.log(data);
   res.render("food", { food: food });
 });
@@ -179,24 +179,53 @@ app.get("/donate_food", (req, res) => {
 });
 
 app.post("/food_added", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
+  data = new Food({
+    name: req.body.food,
+    quantity: req.body.quantity,
+    location: req.body.location,
+    contact: req.body.contact,
+    type: req.body.type,
+  });
 
-  res.redirect("/");
+  data.save(function (err, book) {
+    if (err) {
+      console.log(err);
+      res.send("Something went wrong");
+    }
+    console.log(`Data Added: ${data}`);
+    res.send(`Food Added for DONATION: ${data.name} : ${data.location}`);
+  });
+  
 });
 
 app.post("/food_request", (req, res) => {
-    console.log(req.body);
-    // add food in collection
-    res.send(`Requested successfully: ${req.body.location} -- ${req.body.person}`);
-})
+  console.log(req.body);
+  //add food req in collection
+  data = new Requests({
+    quantity: req.body.person,
+    location: req.body.location,
+  });
+
+  data.save(function (err, book) {
+    if (err) {
+      console.log(err);
+      res.send("Something went wrong");
+    }
+    console.log(`Data Added: ${data}`);
+    res.send(
+      `Requested successfully: ${req.body.location} -- ${req.body.person}`
+    );
+  });
+});
 
 app.get("/search_request", async (req, res) => {
-    // do
-    const data = await Requests.find().sort({'location': 1});
-    const requests = {'details': data}
-    console.log(data);
-    res.render('request.ejs', {data: requests});
-})
+  // do
+  const data = await Requests.find().sort({ location: 1 });
+  const requests = { details: data };
+  console.log(data);
+  res.render("request.ejs", { data: requests });
+});
 
 app.listen(3000, function () {
   console.log("Listening on 3000");
