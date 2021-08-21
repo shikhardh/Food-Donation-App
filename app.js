@@ -15,7 +15,7 @@ mongoose.connect("mongodb://localhost:27017/foodDonate", {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
-  console.log("COnnected to db");
+  console.log("Connected to db");
   // we're connected!
 });
 
@@ -163,7 +163,7 @@ app.use(express.static("public"));
 // };
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.status(200).render("index");
 });
 
 app.get("/search", async (req, res) => {
@@ -171,7 +171,7 @@ app.get("/search", async (req, res) => {
   const data = await Food.find().sort({ location: 1 });
   const food = { details: data };
   //console.log(data);
-  res.render("food", { food: food });
+  res.render("food", { food: food }).status(200);
 });
 
 app.get("/donate_food", (req, res) => {
