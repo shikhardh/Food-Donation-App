@@ -1,14 +1,5 @@
-<html lang="en">
+<%- include('./partials/header.ejs') %>
 
-<head>
-    <title>Home</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-
-<body
-    style="background-image: url('background.jpeg'); background-repeat: no-repeat; background-size: 100%; background-attachment: fixed; background-position: center;">
-    Hi! Welcome to our app.
     <div style="margin-top: 10%; margin-left: 20%;">
         <div class="input-group mb-3">
             <div class="input-group-append">
@@ -30,9 +21,9 @@
             </div>
         </div>
     </div>
-    <div style=" margin-top: 10%;">
+    <div style=" margin-top: 10%; margin-bottom: 10%;">
         <div
-            style="width: 30%; margin-left: 15%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
+            style="width: 30%; margin-left: 15%; margin-bottom: 4%; float: left; background-color: rgb(86, 81, 138); color: aliceblue; padding: 10px;">
             <h3>Have FOOD to DONATE?</h3>
             <br>
             <form name="donate" action="/food_added" method="POST" autocomplete="off">
@@ -94,6 +85,5 @@
             </form>
         </div>
     </div>
-</body>
 
-</html>
+<%- include('./partials/footer.ejs') %>
