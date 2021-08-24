@@ -13,7 +13,7 @@ const expressSession = require("express-session")({
   saveUninitialized: false,
 });
 
-const uri = "mongodb://localhost:27017/mydb";
+const uri = "mongodb://mongo:27017/mydb";
 
 mongoose.connect("mongodb://localhost:27017/foodDonate", {
   useNewUrlParser: true,
