@@ -4,6 +4,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
+const passport = require("passport");
+const connectEnsureLogin = require("connect-ensure-login");
+const expressSession = require("express-session")({
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false,
+});
 
 const uri = "mongodb://localhost:27017/mydb";
 
@@ -127,10 +135,27 @@ const Requests = mongoose.model("Requests", foodRequestSchema);
 
 //app.set('views', path.join(__dirname, 'views'));
 
+const User = new mongoose.Schema({
+  username: String,
+  password: String,
+});
+
+User.plugin(passportLocalMongoose);
+const UserDetails = mongoose.model("userInfo", User, "userInfo");
+
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(expressSession);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(UserDetails.createStrategy());
+
+passport.serializeUser(UserDetails.serializeUser());
+passport.deserializeUser(UserDetails.deserializeUser());
 
 //app.use(upload.array());
 app.use(express.static("public"));
@@ -166,23 +191,61 @@ app.get("/", (req, res) => {
   res.status(200).render("index");
 });
 
-app.get("/search", async (req, res) => {
+app.get("/login", (req, res) => {
+  return res.render('login');
+});
+
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.redirect("/login?info=" + info);
+    req.login(user, function (err) {
+      if (err) return next(err);
+    });
+    return res.redirect("/");
+  })(req, res, next);
+});
+
+app.get("/logout", (req, res) => {
+  req.logout();
+  return res.redirect('/');
+});
+
+// app.get("/register", (req, res) => {
+
+// })
+
+// app.post("/register", (req, res) => {
+//   User.register({ username: req.body.username, active: false }, req.body.password);
+// })
+
+
+// Register users SEED
+//UserDetails.register({ username: "shikhar", active: false }, "shikhar");
+//UserDetails.register({ username: "admin", active: false }, "admin");
+
+app.get("/search", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   //results in a table
   const data = await Food.find().sort({ location: 1 });
   const food = { details: data };
   //console.log(data);
-  res.render("food", { food: food }).status(200);
+  res.status(200).render("food", { food: food });
 });
 
 app.get("/donate_food", (req, res) => {
   // donate food add
 });
 
-app.post("/food_added", (req, res) => {
+app.post("/food_added", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   //console.log(req.body);
-  if (req.body.food == "" || req.body.quantity == "" || req.body.contact == "" || req.body.location == ""){
-    return res.redirect("/");
-}
+  if (
+    req.body.food == "" ||
+    req.body.quantity == "" ||
+    req.body.contact == "" ||
+    req.body.location == ""
+  ) {
+    return res.status(200).redirect("/");
+  }
   data = new Food({
     name: req.body.food,
     quantity: req.body.quantity,
@@ -199,14 +262,13 @@ app.post("/food_added", (req, res) => {
     console.log(`Data Added: ${data}`);
     res.send(`Food Added for DONATION: ${data.name} : ${data.location}`);
   });
-  
 });
 
-app.post("/food_request", (req, res) => {
+app.post("/food_request", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   console.log(req.body);
   //add food req in collection
-  if (req.body.person == "" || req.body.location == ""){
-      return res.redirect("/");
+  if (req.body.person == "" || req.body.location == "") {
+    return res.redirect("/");
   }
   data = new Requests({
     quantity: req.body.person,
@@ -225,7 +287,7 @@ app.post("/food_request", (req, res) => {
   });
 });
 
-app.get("/search_request", async (req, res) => {
+app.get("/search_request", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   // do
   const data = await Requests.find().sort({ location: 1 });
   const requests = { details: data };
